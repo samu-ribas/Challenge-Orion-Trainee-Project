@@ -1,0 +1,745 @@
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #020617;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/*NAVBAR*/
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 15px 50px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* espaçamento */
+}
+
+.logo img {
+    height: 45px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo-text span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.logo-text small {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem; /* espaçamento entre os botões */
+    margin: 0;
+    padding: 0;
+}
+
+/* item da lista */
+.nav-links li {
+    color: #4aabc9;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* efeito de passar o mouse */
+.nav-links li:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* linha  embaixo que aparece do botao */
+.nav-links li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #38bdf8;
+    transition: width 0.3s ease;
+}
+
+.nav-links li:hover::after {
+    width: 100%;
+}
+
+/* botão modal aberto */
+.nav-links li.active {
+    color: #3885f8;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-bar input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    margin-left: 10px;
+    outline: none;
+}
+
+/* SESSÃO HERO */
+.hero-section {
+    position: relative;
+    background-image: linear-gradient(to bottom, rgba(39, 50, 99, 0.4), rgba(0, 0, 0, 1)), url('./assets/galaxy.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding-top: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-header-text {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.hero-header-text h6 { /* "diretoria de pesquisa */
+    color: #4d77b3;
+    letter-spacing: 3px;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.hero-header-text h1 {/* "Exploração Sem Limites" */
+    font-size: 6rem;
+    font-weight: 700;
+    color: #ABA887;
+    font-style: italic;
+}
+
+/* Layout horizontal de textos, terra e Lente */
+.hero-content {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    position: relative;
+}
+
+/* textos à esquerda */
+.hero-sidebar {
+    flex: 1;
+    text-align: left !important;
+    padding-left: 0px;
+}
+
+.hero-sidebar .topic {
+    margin-bottom: 5px;
+}
+
+.hero-sidebar h2 {
+    color: #c6d2e2;
+    font-size: 4.5rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.hero-sidebar p {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 1.20rem;
+}
+
+/* terra ao centro */
+.earth-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    display: inline-block;
+}
+
+.earth-img {
+    width: 110%;
+    max-width: 500px;
+    
+}
+
+/* lupa à direita */
+.lens-instruction {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/*lupa e lente*/
+.lens {
+    position: absolute;
+    width: 169px; 
+    height: 175px;
+    border-radius: 50%;
+    
+
+    border: none; 
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.8);
+    
+    /* fundo do background da foto dos microorganismos */
+    background-color: #000000;
+
+    background-image: url('./assets/placaDePetre.png'); 
+    background-repeat: no-repeat;
+    transform-origin: center center;
+    
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+    transform: translate(-50%, -49%);
+}
+
+/* MÁSCARA DA LUPA */
+.lens::after {
+    content: '';
+    position: absolute;
+    top: 71%;
+    left: 50%;
+    
+    /* Aumenta a caixa invisível para o cabo da lupa poder vazar para fora do círculo */
+    width: 142%; 
+    height: 142%;
+    
+    /* alinha o centro da imagem da lupa com o centro do mouse */
+    transform: translate(-50%, -50%);
+    
+    background-image: url('./assets/lupa-grande.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.lens.active {
+    opacity: 1;
+}
+
+.lupa-icon {
+    cursor: grab;
+    z-index: 2000;
+    transition: transform 0.1s ease;
+}
+
+.lupa-icon:active {
+    cursor: grabbing;
+}
+
+.lupa-icon.dragging {
+    position: fixed;
+    pointer-events: none; 
+    margin: 0;
+    transform: translate(-50%, -50%) scale(1.1); /* expansão para simular elevação Z */
+    transition: none; /* desliga o ease para seguir as coordenadas do mouse em tempo real */
+}
+
+.lens-instruction p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.lens-instruction strong {
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px; 
+    left: 50%;
+    transform: translateX(-50%); /* puxa a imagem do próprio eixo para centralização */
+    cursor: pointer;
+    animation: float-bounce 2s infinite; 
+}
+
+.scroll-indicator img {
+    width: 50px; 
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover img {
+    opacity: 1; /* acende a seta quando passa o mouse em cima*/
+}
+
+/* lógica da animação de flutuação da seta */
+@keyframes float-bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-15px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-7px) translateX(-50%);
+    }
+}
+
+/* CARDS */
+.areas-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px; /*espaçamento entre os dois cards*/
+    padding: 100px 5%; /* espaçamento interno  */
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto; /* centraliza a seção na tela */
+}
+
+.card {
+    width: 45%;
+    border-radius: 40px; /* arredondamento */
+    padding: 40px;
+    color: #020617; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.stardust-bg {
+    background-color: #A7B8DD; 
+}
+
+.kafsima-bg {
+    background-color: #819D7A; 
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.card-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.card-header img {
+    height: 80px;
+}
+
+.card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* ACERVO */
+.acervo-section {
+    text-align: center;
+    padding: 80px 5% 100px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.acervo-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.acervo-section p {
+    color: #94a3b8;
+    margin-bottom: 50px;
+    font-weight: 300;
+}
+
+.gallery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; /*distância entre a linha de cima e a foto redonda de baixo*/
+    width: 100%;
+    max-width: 1000px;
+}
+
+.gallery-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /*sistância entre as 3 fotos horizontais*/
+    width: 100%;
+}
+
+.gallery-img {
+    width: 30%;
+    max-width: 300px;
+    aspect-ratio: 4 / 3; /* força proporção retangular para todas as imagens */
+    object-fit: cover; /* preenche a caixa e corta o excesso sem achatar a imagem */
+    border-radius: 20px;
+    border: 4px solid #ffffff; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.circle-img {
+    width: 220px;
+    height: 220px;
+    aspect-ratio: 1 / 1; /* força a imagem a ser um quadrado */
+    border-radius: 50%; /* converte o quadrado em um círculo */
+}
+
+/* MODAL DE IMAGENS  */
+.gallery-img {
+    transition: transform 0.01s ease, box-shadow 0.01s ease;
+    cursor: pointer;
+}
+
+/* feedback visual de que a imagem é clicável */
+.gallery-img:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* joga a foto para o centro da tela */
+.gallery-img.img-popup-active {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.2); 
+    z-index: 2000;
+    margin: 0;
+}
+
+.circle-img.img-popup-active {
+    transform: translate(-50%, -50%) scale(1.8); /* o círculo escala um pouco menos para caber melhor */
+}
+
+/* caixa de texto da legenda */
+.popup-caption {
+    position: fixed;
+    top: 80%; 
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background-color: rgba(2, 6, 23, 0.85); 
+    backdrop-filter: blur(5px);
+    padding: 12px 35px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.popup-caption.active {
+    opacity: 1;
+}
+
+/* RODAPÉ */
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    /* Cria o degradê de azul claro */
+    background: linear-gradient(to top, rgba(59, 130, 246, 0.2), transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer p {
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+footer small {
+    color: #94a3b8;
+    font-weight: 400;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    display: block;
+}
+
+
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(2, 6, 23, 0.6);
+    backdrop-filter: blur(12px); /* efeito de  desfoque */
+    z-index: 1999;
+    opacity: 0;
+    pointer-events: none; /* ignora cliques quando invisível */
+    transition: opacity 0.2s ease;
+}
+
+.blur-overlay.active {
+    opacity: 1;
+    pointer-events: auto; /* ativa a área de clique para fechar */
+    cursor: pointer;
+}
+
+/* transição do card normal para o centro da tela */
+.card {
+    transition: transform 0.01s ease, box-shadow 0.01s ease; /* fluidez ao card base */
+}
+
+.card.popup-active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.15); /* centraliza e aumenta */
+    z-index: 2000;
+    width: 90%;
+    max-width: 650px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+    margin: 0;
+}
+
+/* MODAL SOBRE */
+.about-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: #0f172a; 
+    color: #ffffff;
+    padding: 45px;
+    border-radius: 35px;
+    width: 90%;
+    max-width: 650px;
+    z-index: 2001; 
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(34, 211, 238, 0.3); 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.about-modal.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.about-modal h2 {
+    margin-bottom: 25px;
+    color: #22d3ee;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.about-modal p {
+    line-height: 1.8;
+    font-size: 1.15rem;
+    color: #e2e8f0;
+    text-align: justify;
+}
+
+/*LOGIN*/
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  background: url('./assets/galaxy.png') center center / cover no-repeat fixed;
+}
+
+.auth-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.65);
+  backdrop-filter: blur(1px);
+}
+
+.auth-screen {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 580px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 52px 28px;
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  text-align: center;
+  color: #fff;
+}
+
+.auth-logo {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.18));
+}
+
+.auth-title {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.auth-screen input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  outline: none;
+  transition: 0.2s ease;
+  font-size: 1rem;
+}
+
+.auth-screen input::placeholder {
+  color: #64748b;
+}
+
+.auth-screen input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.18);
+  background: #fff;
+}
+
+.auth-screen button {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+}
+
+.auth-screen button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.auth-screen button:active {
+  transform: translateY(0);
+}
+
+.auth-switch {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #7dd3fc;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.auth-switch:hover {
+  color: #bae6fd;
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+
+  .hero-content {
+    flex-direction: column !important;
+    gap: 50px;
+    text-align: center;
+  }
+
+  .hero-sidebar,
+  .lens-instruction {
+    align-items: center;
+    text-align: center !important;
+  }
+
+  .hero-sidebar h2 {
+    font-size: 3rem;
+  }
+
+  .hero-header-text h1 {
+    font-size: 3rem;
+  }
+
+  .areas-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .gallery-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery-img {
+    width: 90%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .search-bar {
+    display: none;
+  }
+}
